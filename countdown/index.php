@@ -5,7 +5,7 @@
     $secPerYear = 365 * $secPerDay;
 
     $now = time();
-    $burningMan = mktime(5, 30, 0, 12, 15, 2025);
+    $burningMan = mktime(9, 30, 0, 12, 15, 2025);
 
     $seconds = $burningMan - $now;
 
