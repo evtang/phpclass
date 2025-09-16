@@ -5,9 +5,9 @@
     $secPerYear = 365 * $secPerDay;
 
     $now = time();
-    $burningMan = mktime(9, 30, 0, 12, 15, 2025);
+    $endOfSemester = mktime(21, 30, 0, 12, 15, 2025);
 
-    $seconds = $burningMan - $now;
+    $seconds = $endOfSemester - $now;
 
     $years = floor($seconds / $secPerYear);
     $seconds = $seconds - ($years * $secPerYear);
