@@ -5,6 +5,7 @@ $computerdice1 = mt_rand(1, 6);
 $computerdice2 = mt_rand(1, 6);
 $computerdice3 = mt_rand(1, 6);
 
+
 $playerScore = $playerdice1 + $playerdice2;
 $computerScore = $computerdice1 + $computerdice2 + $computerdice3;
 
