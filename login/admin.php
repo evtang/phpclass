@@ -1,4 +1,6 @@
 <?php
+
+$memberKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 session_start();
 
 $errorMessage = "";
@@ -14,7 +16,7 @@ $cboRole = $_POST["cboRole"];
 
 $ADMIN_ID = 3;
 
-if (!isset($_SESSION["userID"]) || $_SESSION['roleID'] != $ADMIN_ID) {
+if (!isset($_SESSION["memberID"]) || $_SESSION['roleID'] != $ADMIN_ID) {
     header("Location: /login");
 }
 
@@ -26,10 +28,12 @@ if ($formSubmitted) {
         include "../includes/db.php";
         $con = getDBConnection();
 
+
         try {
-            $query = "INSERT INTO members (memberName, memberEmail, memberPassword, memberKey, roleID) VALUES (?, ?, ?, 'nnnn', ?);";
+            $hashedPassword = md5($txtPassword . $memberKey);
+            $query = "INSERT INTO members (memberName, memberEmail, memberPassword, memberKey, roleID) VALUES (?, ?, ?, ?, ?);";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "ssss", $txtUsername, $txtEmail, $txtPassword, $cboRole);
+            mysqli_stmt_bind_param($stmt, "sssss", $txtUsername, $txtEmail, $hashedPassword, $memberKey, $cboRole);
             mysqli_stmt_execute($stmt);
 
             $txtUsername = "";
