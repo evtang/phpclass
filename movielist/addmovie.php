@@ -1,30 +1,30 @@
 <?php
 
-    $errorMessage = "";
+$errorMessage = "";
 
-    if (!empty($_POST["txtTitle"]) && !empty($_POST["txtRating"])) {
+if (!empty($_POST["txtTitle"]) && !empty($_POST["txtRating"])) {
 
 
-        include "../includes/db.php";
-        $con = getDBConnection();
+    include "../includes/db.php";
+    $con = getDBConnection();
 
-        $txtTitle = $_POST["txtTitle"];
-        $txtRating = $_POST["txtRating"];
+    $txtTitle = $_POST["txtTitle"];
+    $txtRating = $_POST["txtRating"];
 
-        try {
-            $query = "INSERT INTO movielist (MovieTitle, MovieRating) VALUES (?, ?);";
-            $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "ss", $txtTitle, $txtRating);
-            mysqli_stmt_execute($stmt);
+    try {
+        $query = "INSERT INTO movielist (MovieTitle, MovieRating) VALUES (?, ?);";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "ss", $txtTitle, $txtRating);
+        mysqli_stmt_execute($stmt);
 
-            header("Location: /movielist");
-        }
-        catch(mysqli_sql_exception $ex) {
-            //echo $ex;
-            $errorMessage = $ex;
-        }
-
+        header("Location: /movielist");
     }
+    catch(mysqli_sql_exception $ex) {
+        //echo $ex;
+        $errorMessage = $ex;
+    }
+
+}
 
 ?><!doctype html>
 <html lang="en">
@@ -52,7 +52,7 @@ include "../includes/header.php";
             <div class="grid-container">
 
                 <div class="grid-header">
-                    <h3>Add new movie:</h3>
+                    <h3>Add New Customer:</h3>
                 </div>
 
                 <div class="movie-title">
@@ -77,7 +77,7 @@ include "../includes/header.php";
                 </div>
 
                 <div class="grid-footer">
-                    <input type="submit" value="Add Movie">
+                    <input type="submit" value="Add Customer">
                 </div>
 
 

@@ -36,9 +36,10 @@ class Home extends BaseController
 
         $Member = new Member();
         if ($Member->user_login($username, $password)) {
-            return view("admin_page");
-        }
-        else {
+            //return view("admin_page");
+            header('Location: admin');
+            exit();
+        } else {
             $data = [
                 "load_error" => "true",
                 "error_message" => "Invalid username or password."

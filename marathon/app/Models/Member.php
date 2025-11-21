@@ -20,6 +20,13 @@ class Member extends Model
 
         if ($dbPassword != $hashedPassword) return false; // incorrect pw entered
 
+
+        $this->session = service('session');
+        $this->session->start();
+
+        $this->session->set('memberID', $row->memberID);
+        $this->session->set('roleID', $row->roleID);
+
         return true;
     }
 }

@@ -1,0 +1,62 @@
+
+.grid-header { grid-area: grid-header; }
+.customerId { grid-area: customerId; }
+.customerId-input { grid-area: customerId-input; }
+.first-name { grid-area: first-name; }
+.firstName-input { grid-area: firstName-input; }
+.last-name { grid-area: last-name; }
+.lastName-input { grid-area: lastName-input; }
+.address { grid-area: address; }
+.address-input { grid-area: address-input; }
+.city { grid-area: city; }
+.city-input { grid-area: city-input; }
+.state { grid-area: state; }
+.state-input { grid-area: state-input; }
+.zip { grid-area: zip; }
+.zip-input { grid-area: zip-input; }
+.phone { grid-area: phone; }
+.phone-input { grid-area: phone-input; }
+.email { grid-area: email; }
+.email-input { grid-area: email-input; }
+.password { grid-area: password; }
+.password-input { grid-area: password-input; }
+.error-message { grid-area: error-message; }
+.grid-footer { grid-area: grid-footer; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+                "grid-header grid-header"
+                "customerId customerId-input"
+                "first-name firstName-input"
+                "last-name lastName-input"
+                "address address-input"
+                "city city-input"
+                "state state-input"
+                "zip zip-input"
+                "phone phone-input"
+                "email email-input"
+                "password password-input"
+                "error-message error-message"
+                "grid-footer grid-footer"
+;
+    border: 1px solid black;
+}
+
+.grid-container > div {
+    border: 1px solid black;
+    text-align: center;
+}
+
+.grid-container input[type="text"] {
+    width: 98%;
+    margin: 2px 0;
+}
+
+.error p {
+    color: red;
+}
+
+.hidden {
+    display: none;
+}
