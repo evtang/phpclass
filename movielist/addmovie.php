@@ -52,7 +52,7 @@ include "../includes/header.php";
             <div class="grid-container">
 
                 <div class="grid-header">
-                    <h3>Add New Customer:</h3>
+                    <h3>Add New Movie:</h3>
                 </div>
 
                 <div class="movie-title">
@@ -77,7 +77,7 @@ include "../includes/header.php";
                 </div>
 
                 <div class="grid-footer">
-                    <input type="submit" value="Add Customer">
+                    <input type="submit" value="Add Movie">
                 </div>
 
 

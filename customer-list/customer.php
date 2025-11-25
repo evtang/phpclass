@@ -1,16 +1,44 @@
 <?php
 
-$errorMessage = "";
+if (empty($_GET["id"]))
+{
+    header("Location: /customer-list");
+}
+
+include "../includes/db.php";
+$con = getDBConnection();
+
+$customerID = $_GET["id"];
+
+try {
+    $query = "SELECT * FROM customers WHERE CustomerID = ?";
+    $stmt = mysqli_prepare($con, $query);
+    mysqli_stmt_bind_param($stmt, "s", $CustomerID);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_array($result);
+
+
+    $txtFirstName = $row["firstName"];
+    $txtLastName = $row["lastName"];
+    $txtAddress = $row["address"];
+    $txtCity = $row["city"];
+    $txtState = $row["state"];
+    $txtZip = $row["zip"];
+    $txtPhone = $row["phone"];
+    $txtEmail = $row["email"];
+    $txtPassword = $row["password"];
+}
+catch(mysqli_sql_exception $ex) {
+    echo $ex;
+}
+
+// do the update (update the db)
+
 
 if (!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"]) && !empty($_POST["txtAddress"])
     && !empty($_POST["txtCity"]) && !empty($_POST["txtState"]) && !empty($_POST["txtZip"]) &&
-    !empty($_POST["txtPhone"]) && !empty($_POST["txtEmail"]) && !empty($_POST["txtPassword"]))
-{
-
-
-    include "../includes/db.php";
-    $con = getDBConnection();
-
+    !empty($_POST["txtPhone"]) && !empty($_POST["txtEmail"]) && !empty($_POST["txtPassword"])) {
 
     $txtFirstName = $_POST["txtFirstName"];
     $txtLastName = $_POST["txtLastName"];
@@ -21,7 +49,6 @@ if (!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"]) && !empty($_
     $txtPhone = $_POST["txtPhone"];
     $txtEmail = $_POST["txtEmail"];
     $txtPassword = $_POST["txtPassword"];
-
     try {
         $query = "INSERT INTO customers ( FirstName, LastName, Address, City, State, Zip, Phone, Email, Password)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -33,10 +60,8 @@ if (!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"]) && !empty($_
         header("Location: /customers");
     }
     catch(mysqli_sql_exception $ex) {
-        //echo $ex;
-        $errorMessage = $ex;
+        echo $ex;
     }
-
 }
 
 ?><!doctype html>
@@ -65,7 +90,7 @@ include "../includes/header.php";
             <div class="grid-container">
 
                 <div class="grid-header">
-                    <h3>Add New Customer:</h3>
+                    <h3>Update Customer:</h3>
                 </div>
 
                 <div class="customerId">
@@ -73,14 +98,14 @@ include "../includes/header.php";
                 </div>
 
                 <div class="customer-input">
-                    <input type="text" name="txtCustomerId" id="txtCustomerId">
+                    <input type="text" name="txtCustomerId" id="txtCustomerId" value="<?=$customerID;?>">
                 </div>
                 <div class="first-name">
                     <label for="txtFirstName">First Name:</label>
                 </div>
 
                 <div class="firstName-input">
-                    <input type="text" name="txtFirstName" id="txtFirstName">
+                    <input type="text" name="txtFirstName" id="txtFirstName" value="<?=$txtFirstName;?>">
                 </div>
 
                 <div class="last-name">
@@ -88,7 +113,7 @@ include "../includes/header.php";
                 </div>
 
                 <div class="lastName-input">
-                    <input type="text" name="txtLastName" id="txtLastName">
+                    <input type="text" name="txtLastName" id="txtLastName" value="<?=$txtLastName;?>">
                 </div>
 
                 <div class="address">
@@ -96,7 +121,7 @@ include "../includes/header.php";
                 </div>
 
                 <div class="address-input">
-                    <input type="text" name="txtAddress" id="txtAddress">
+                    <input type="text" name="txtAddress" id="txtAddress" value="<?=$txtAddress;?>">
                 </div>
 
                 <div class="city">
@@ -104,7 +129,7 @@ include "../includes/header.php";
                 </div>
 
                 <div class="city-input">
-                    <input type="text" name="txtCity" id="txtCity">
+                    <input type="text" name="txtCity" id="txtCity" value="<?=$txtCity;?>">
                 </div>
 
                 <div class="state">
@@ -112,7 +137,7 @@ include "../includes/header.php";
                 </div>
 
                 <div class="state-input">
-                    <input type="text" name="txtState" id="txtState">
+                    <input type="text" name="txtState" id="txtState" value="<?=$txtState;?>">
                 </div>
 
                 <div class="zip">
@@ -120,7 +145,7 @@ include "../includes/header.php";
                 </div>
 
                 <div class="zip-input">
-                    <input type="text" name="txtZip" id="txtZip">
+                    <input type="text" name="txtZip" id="txtZip" value="<?=$txtZip;?>">
                 </div>
 
                 <div class="phone">
@@ -128,7 +153,7 @@ include "../includes/header.php";
                 </div>
 
                 <div class="phone-input">
-                    <input type="text" name="txtPhone" id="txtPhone">
+                    <input type="text" name="txtPhone" id="txtPhone" value="<?=$txtPhone;?>">
                 </div>
 
                 <div class="email">
@@ -136,7 +161,7 @@ include "../includes/header.php";
                 </div>
 
                 <div class="email-input">
-                    <input type="text" name="txtEmail" id="txtEmail">
+                    <input type="text" name="txtEmail" id="txtEmail" value="<?=$txtEmail;?>">
                 </div>
 
                 <div class="password">
@@ -144,17 +169,11 @@ include "../includes/header.php";
                 </div>
 
                 <div class="password-input">
-                    <input type="text" name="txtPassword" id="txtPassword">
-                </div>
-
-
-                <div class="error <?php
-                echo $errorMessage == "" ? "hidden" : "" ?>">
-                    <p><?=$errorMessage;?></p>
+                    <input type="text" name="txtPassword" id="txtPassword" value="<?=$txtPassword;?>">
                 </div>
 
                 <div class="grid-footer">
-                    <input type="submit" value="Add Customer">
+                    <input type="submit" value="Update Customer">
                     <input type="button" value="Delete Customer" id="delete">
                 </div>
 
@@ -166,5 +185,12 @@ include "../includes/header.php";
 <?php
 include "../includes/footer.php";
 ?>
+<script>
+
+    const deleteButton = document.querySelector('#delete')
+    deleteButton.addEventListener('click', () => {
+        window.location = `./delete.php?id=<?=$customerID?>`
+    })
+</script>
 </body>
 </html>

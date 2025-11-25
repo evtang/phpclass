@@ -69,7 +69,9 @@ include "../includes/header.php";
 
                 echo "<tr>";
                 echo "    <td>$customerID</td>";
-                echo "    <td>$firstName</td>";
+                echo "    <td>";
+                echo "        <a href=\"customer.php?id=$customerID\">$firstName</a>";
+                echo "      </td>";
                 echo "    <td>$lastName</td>";
                 echo "    <td>$address</td>";
                 echo "    <td>$city</td>";
