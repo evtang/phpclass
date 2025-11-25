@@ -125,9 +125,26 @@ include "../includes/header.php";
 
                 <div class="role-input">
                    <select id="cboRole" name="cboRole">
-                       <option value="1">Member</option>
-                       <option value="2">Operator</option>
-                       <option value="3">Admin</option>
+                       <?php
+                       include "../includes/db.php";
+                       $con = getDBConnection();
+                       $result = mysqli_query($con, "SELECT * FROM roles");
+
+                       while ($row = mysqli_fetch_array($result)) {
+
+                           $runner = $row["RunnerID"];
+                           $promoter = $row["PromoterID"];
+                           $admin = $row["AdminID"];
+
+
+                           echo " <option>$runner</option>";
+                           echo " <option>$promoter</option>";
+                           echo " <option>$admin</option>";
+
+                       }
+
+                       ?>
+
                    </select>
                 </div>
 
