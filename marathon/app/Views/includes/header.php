@@ -1,3 +1,19 @@
+<?php
+$this->session = service('session');
+$this->session->start();
+
+$roleID = $this->session->get('roleID');
+
+
+
+if ($roleID != 3) {
+    header('Location: /marathon/public#login');
+    exit();
+}
+
+$memberName = $this->session->get("memberName");
+
+?>
 <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -13,7 +29,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
         <ul class="dropdown-menu">
             <li>
-                <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                <a href="/marathon/public/logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
             </li>
         </ul>
     </li>

@@ -48,6 +48,14 @@ class Home extends BaseController
         }
     }
 
+
+
+    public function logout() : void {
+        service('session')->destroy();
+        header('Location: /marathon/public');
+        exit();
+    }
+
     public function create(): string
     {
         echo "create";

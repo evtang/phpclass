@@ -70,6 +70,14 @@ class Admin extends BaseController
       //  header("Location: /marathon/public/marathon");
      //   exit();
 
+
+        $this->session = service('session');
+        $this->session->start();
+        $memberKey = $this->session->get('memberKey');
+
+        $Member = new Member();
+        if  ($Member->has_access($memberKey, $id))
+
         $Race = new Race();
 
 
@@ -81,7 +89,11 @@ class Admin extends BaseController
 
     public function edit_race()
     {
+            $Member = new Member();
+
+
             $Race = new Race();
+
 
             $id = $this->request->getPost('race_id');
           $name = $this->request->getPost('race_name');
